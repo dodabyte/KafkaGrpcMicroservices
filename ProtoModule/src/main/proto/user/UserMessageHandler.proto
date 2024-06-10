@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.aston.protomodule.user;
+
+enum MessageType {
+  INFO = 0;
+  ERROR = 1;
+}
+
+message Message {
+  MessageType type = 1;
+  string message = 2;
+}
+
+service UserMessageHandler {
+  rpc message (Message) returns (Message);
+}
+

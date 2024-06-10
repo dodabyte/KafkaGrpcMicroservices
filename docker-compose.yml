@@ -1,0 +1,81 @@
+version: '3'
+
+services:
+  userserviceapp:
+    build: ./UserServiceApp
+    ports:
+      - "8080:8080"
+    depends_on:
+      - GrpcTestDb
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://GrpcTestDb:5432/GrpcTestDb
+      - SPRING_DATASOURCE_USERNAME=grpc_user
+      - SPRING_DATASOURCE_PASSWORD=321321
+
+  orderserviceapp:
+    build: ./OrderServiceApp
+    ports:
+      - "8081:8081"
+    depends_on:
+      - KafkaTestDb
+      - kafka
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://KafkaTestDb:5432/KafkaTestDb
+      - SPRING_DATASOURCE_USERNAME=kafka_user
+      - SPRING_DATASOURCE_PASSWORD=123123
+
+
+  GrpcTestDb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: grpc_user
+      POSTGRES_PASSWORD: 321321
+      POSTGRES_DB: GrpcTestDb
+    volumes:
+      - GrpcTestDb-data:/var/lib/postgresql/data
+
+  KafkaTestDb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: kafka_user
+      POSTGRES_PASSWORD: 123123
+      POSTGRES_DB: KafkaTestDb
+    volumes:
+      - KafkaTestDb-data:/var/lib/postgresql/data
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+
+volumes:
+  GrpcTestDb-data:
+  KafkaTestDb-data:

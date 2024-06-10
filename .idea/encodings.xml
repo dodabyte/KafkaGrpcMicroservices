@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/GrpcServiceApp/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GrpcServiceApp/src/main/proto/order.proto" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KafkaServiceApp/GrpcServiceApp/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KafkaServiceApp/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/KafkaServiceApp/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OrderServiceApp/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OrderServiceApp/src/main/resources/application.yaml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OrderServiceApp/src/main/resources/create_table_orders.sql" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OrderServiceApp/src/main/resources/static" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OrderServiceApp/src/main/resources/templates" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ProtoModule/src/main/proto/user/UserMessageHandler.proto" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/UserServiceApp/src/main/java" charset="UTF-8" />
+  </component>
+</project>
